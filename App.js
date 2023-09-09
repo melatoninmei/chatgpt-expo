@@ -64,7 +64,7 @@ function App() {
         <div className="container mx-auto py-4 max-w-3xl">
             {/* title */}
             <h1 className="text-4xl font-bold mb-4 text-center">
-                ChatGPT Open UI
+                Well actually... 🧐
             </h1>
 
             {/* form container */}
