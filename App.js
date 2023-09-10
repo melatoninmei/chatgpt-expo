@@ -68,7 +68,7 @@ function App() {
 
     // saves api key to cookies and local storage
     const handleApiKeySave = async () => {
-        // e.preventDefault()
+        e.preventDefault()
         storeData("apiKey", apiKey)
     }
 
@@ -118,7 +118,7 @@ function App() {
                     onChangeText={setApiKey}
                     className="border-2 rounded border-blue-400 p-2 mb-1"
                     placeholder="Enter API key"
-                    secureTextEntry={checked}
+                    secureTextEntry={!checked}
                 />
 
                 {/* container for show api key checkbox and save api key button */}
