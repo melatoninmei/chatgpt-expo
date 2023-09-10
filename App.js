@@ -3,14 +3,9 @@ import onSubmit from "./src/api/api"
 import HashLoader from "react-spinners/HashLoader"
 import parseMarkdown from "./src/parseMarkdown/parseMarkdown"
 import allowTextareasToDynamicallyResize from "./src/dynamicInput/dynamicInput"
-import {
-    View,
-    Text,
-    TextInput,
-    Button,
-    SafeAreaView,
-    ScrollView,
-} from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { View, Text, TextInput, Pressable, ScrollView } from "react-native"
+import { Checkbox } from "expo-checkbox"
 
 function App() {
     const [apiKey, setApiKey] = useState("")
@@ -28,10 +23,7 @@ function App() {
 
     // gets api key from cookies and local storage and sets it into api key input field
     useEffect(() => {
-        const storedApiKey = localStorage.getItem("apiKey")
-        if (storedApiKey) {
-            setApiKey(storedApiKey)
-        }
+        // setApiKey(getData("apiKey"))
     }, [])
 
     const handleSubmit = (e) => {
@@ -57,9 +49,9 @@ function App() {
     }
 
     // saves api key to cookies and local storage
-    const handleApiKeySave = (e) => {
-        e.preventDefault()
-        localStorage.setItem("apiKey", apiKey)
+    const handleApiKeySave = async () => {
+        // e.preventDefault()
+        storeData(apiKey)
     }
 
     // update textarea height on input
@@ -67,8 +59,29 @@ function App() {
         allowTextareasToDynamicallyResize()
     }, [])
 
+    const storeData = async (value) => {
+        try {
+            await AsyncStorage.setItem("apiKey", value)
+            console.log("Stored data to Async storage: apiKey " + value)
+        } catch (e) {
+            console.log("Error storing data to Async storage: " + value)
+            console.log(e)
+        }
+    }
+
+    const getData = async (key) => {
+        try {
+            const value = await AsyncStorage.getItem(key)
+            console.log("Retrieved from Async storage: " + key + " " + value)
+            return value
+        } catch (e) {
+            console.log("Error retrieving from Async storage: " + key)
+            console.log(e)
+        }
+    }
+
     return (
-        <SafeAreaView className="container mx-auto py-4 max-w-3xl text-center flex-1 items-center justify-center">
+        <View className="container mx-auto py-4 max-w-3xl text-center flex-1 items-center justify-center">
             <ScrollView>
                 {/* title */}
                 <Text className="text-4xl font-bold mb-4 text-center">
@@ -83,8 +96,9 @@ function App() {
                         type={checked ? "text" : "password"}
                         id="api-key"
                         value={apiKey}
-                        onChange={(e) => setApiKey(e.target.value)}
+                        onChangeText={setApiKey}
                         className="border-2 rounded border-blue-400 p-2 mb-1"
+                        placeholder="Enter API key"
                     />
 
                     {/* container for show api key checkbox and save api key button */}
@@ -94,21 +108,20 @@ function App() {
                             <Text className="mb-3 font-bold mr-5">
                                 Show API key:
                             </Text>
-                            <TextInput
-                                type="checkbox"
+                            <Checkbox
                                 onClick={showPassword}
                                 id="show-password"
                             />
                         </View>
 
                         <View>
-                            <Button
-                                onClick={handleApiKeySave}
+                            <Pressable
+                                onPress={handleApiKeySave}
                                 className="bg-blue-500 text-white py-1 px-2 rounded text-center w-50 text-md flex justify-center hover:bg-blue-800"
                                 title="Save API Key"
                             >
-                                Save API Key
-                            </Button>
+                                <Text>Save API Key</Text>
+                            </Pressable>
                         </View>
                     </View>
 
@@ -117,20 +130,20 @@ function App() {
                     <TextInput
                         id="input-text"
                         value={inputText}
-                        onChange={(e) => setInputText(e.target.value)}
+                        onChangeText={(e) => setInputText(e.target.value)}
                         className="border-2 rounded-xl border-blue-500 p-3 mb-10 h-auto max-h-none resize-none"
-                        numberOfLines={1}
-                    ></TextInput>
+                        rows={1}
+                    />
 
-                    {/* handles button submit */}
+                    {/* handles Pressable submit */}
                     <View className="flex justify-center">
-                        <Button
+                        <Pressable
                             type="submit"
                             className="bg-blue-500 text-white py-3 px-4 rounded text-center w-60 flex justify-center hover:bg-blue-800"
                             disabled={loading}
                             title="Loading..."
                         >
-                            {/* when loading spinner is displayed, otherwise button is enabled */}
+                            {/* when loading spinner is displayed, otherwise Pressable is enabled */}
                             {loading ? (
                                 <HashLoader
                                     color="white"
@@ -142,7 +155,7 @@ function App() {
                             ) : (
                                 <Text className="font-bold">Ask nicely</Text>
                             )}
-                        </Button>
+                        </Pressable>
                     </View>
                 </View>
 
@@ -154,13 +167,13 @@ function App() {
                     {result && (
                         <View className="border-2 rounded-xl border-blue-400 p-4 mt-2 mx-4">
                             <View className="whitespace-pre-line">
-                                {parsedResult}
+                                <Text>{parsedResult}</Text>
                             </View>
                         </View>
                     )}
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     )
 }
 
