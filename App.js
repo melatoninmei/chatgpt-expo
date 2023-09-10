@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import onSubmit from "./src/api/api"
 import HashLoader from "react-spinners/HashLoader"
 import parseMarkdown from "./src/parseMarkdown/parseMarkdown"
-import allowTextareasToDynamicallyResize from "./src/dynamicInput/dynamicInput"
+// import allowTextareasToDynamicallyResize from "./src/dynamicInput/dynamicInput"
 import AsyncStorage from "@react-native-async-storage/async-storage"
-import { View, Text, TextInput, Pressable, ScrollView } from "react-native"
+import { View, Text, TextInput, Pressable } from "react-native"
 import { Checkbox } from "expo-checkbox"
 
 function App() {
@@ -74,7 +74,7 @@ function App() {
 
     // update textarea height on input
     useEffect(() => {
-        allowTextareasToDynamicallyResize()
+        // allowTextareasToDynamicallyResize()
     }, [])
 
     const storeData = async (key, value) => {
@@ -101,7 +101,7 @@ function App() {
     }
 
     return (
-        <View className="container mx-auto py-4 max-w-3xl">
+        <View className="container mx-auto py-10 max-w-3xl">
             {/* title */}
             <Text className="text-4xl font-bold mb-4 text-center">
                 Well actually... 🧐
@@ -112,8 +112,6 @@ function App() {
                 {/* handles api key input */}
                 <Text className="mb-2 font-bold">API Key</Text>
                 <TextInput
-                    type={checked ? "text" : "password"}
-                    id="api-key"
                     value={apiKey}
                     onChangeText={setApiKey}
                     className="border-2 rounded border-blue-400 p-2 mb-1"
@@ -148,11 +146,9 @@ function App() {
                 {/* handles text prompt from user */}
                 <Text className="mb-2 font-bold">Input Text</Text>
                 <TextInput
-                    id="input-text"
                     value={inputText}
                     onChangeText={setInputText}
                     className="border-2 rounded-xl border-blue-500 p-3 mb-10 h-auto max-h-none resize-none"
-                    rows={1}
                 />
 
                 {/* handles Pressable submit */}
