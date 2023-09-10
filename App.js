@@ -23,7 +23,23 @@ function App() {
 
     // gets api key from cookies and local storage and sets it into api key input field
     useEffect(() => {
-        // setApiKey(getData("apiKey"))
+        const fetchApiKey = async () => {
+            return await getData("apiKey")
+        }
+        const fetchPasswordHiddenChecked = async () => {
+            return await getData("passwordHiddenChecked")
+        }
+        fetchApiKey().then((value) => {
+            if (value) {
+                setApiKey(value)
+            }
+        })
+
+        fetchPasswordHiddenChecked().then((value) => {
+            if (typeof maybeObject != "undefined") {
+                setChecked({ value })
+            }
+        })
     }, [])
 
     const handleSubmit = (e) => {
@@ -43,15 +59,17 @@ function App() {
     const showPassword = () => {
         if (checked) {
             setChecked(false)
+            storeData("passwordHiddenChecked", false)
         } else {
             setChecked(true)
+            storeData("passwordHiddenChecked", true)
         }
     }
 
     // saves api key to cookies and local storage
     const handleApiKeySave = async () => {
         // e.preventDefault()
-        storeData(apiKey)
+        storeData("apiKey", apiKey)
     }
 
     // update textarea height on input
@@ -59,12 +77,14 @@ function App() {
         allowTextareasToDynamicallyResize()
     }, [])
 
-    const storeData = async (value) => {
+    const storeData = async (key, value) => {
         try {
-            await AsyncStorage.setItem("apiKey", value)
-            console.log("Stored data to Async storage: apiKey " + value)
+            await AsyncStorage.setItem(key, value)
+            console.log("Stored data to Async storage: " + key + " " + value)
         } catch (e) {
-            console.log("Error storing data to Async storage: " + value)
+            console.log(
+                "Error storing data to Async storage: " + key + " " + value
+            )
             console.log(e)
         }
     }
@@ -99,6 +119,7 @@ function App() {
                         onChangeText={setApiKey}
                         className="border-2 rounded border-blue-400 p-2 mb-1"
                         placeholder="Enter API key"
+                        secureTextEntry={checked}
                     />
 
                     {/* container for show api key checkbox and save api key button */}
@@ -109,8 +130,8 @@ function App() {
                                 Show API key:
                             </Text>
                             <Checkbox
-                                onClick={showPassword}
-                                id="show-password"
+                                onValueChange={showPassword}
+                                value={checked}
                             />
                         </View>
 
