@@ -101,99 +101,97 @@ function App() {
     }
 
     return (
-        <View className="container mx-auto py-4 max-w-3xl text-center flex-1 items-center justify-center">
-            <ScrollView>
-                {/* title */}
-                <Text className="text-4xl font-bold mb-4 text-center">
-                    Well actually... 🧐
-                </Text>
+        <View className="container mx-auto py-4 max-w-3xl">
+            {/* title */}
+            <Text className="text-4xl font-bold mb-4 text-center">
+                Well actually... 🧐
+            </Text>
 
-                {/* form container */}
-                <View onSubmit={handleSubmit} className="flex flex-col mx-5">
-                    {/* handles api key input */}
-                    <Text className="mb-2 font-bold">API Key</Text>
-                    <TextInput
-                        type={checked ? "text" : "password"}
-                        id="api-key"
-                        value={apiKey}
-                        onChangeText={setApiKey}
-                        className="border-2 rounded border-blue-400 p-2 mb-1"
-                        placeholder="Enter API key"
-                        secureTextEntry={checked}
-                    />
+            {/* form container */}
+            <View onSubmit={handleSubmit} className="flex flex-col mx-5">
+                {/* handles api key input */}
+                <Text className="mb-2 font-bold">API Key</Text>
+                <TextInput
+                    type={checked ? "text" : "password"}
+                    id="api-key"
+                    value={apiKey}
+                    onChangeText={setApiKey}
+                    className="border-2 rounded border-blue-400 p-2 mb-1"
+                    placeholder="Enter API key"
+                    secureTextEntry={checked}
+                />
 
-                    {/* container for show api key checkbox and save api key button */}
-                    <View className="flex flex-row justify-between mb-6 mt-4">
-                        {/* handles show api key on/off */}
-                        <View className="text-end">
-                            <Text className="mb-3 font-bold mr-5">
-                                Show API key:
-                            </Text>
-                            <Checkbox
-                                onValueChange={showPassword}
-                                value={checked}
-                            />
-                        </View>
-
-                        <View>
-                            <Pressable
-                                onPress={handleApiKeySave}
-                                className="bg-blue-500 text-white py-1 px-2 rounded text-center w-50 text-md flex justify-center hover:bg-blue-800"
-                                title="Save API Key"
-                            >
-                                <Text>Save API Key</Text>
-                            </Pressable>
-                        </View>
+                {/* container for show api key checkbox and save api key button */}
+                <View className="flex flex-row justify-between mb-6 mt-4">
+                    {/* handles show api key on/off */}
+                    <View className="text-end">
+                        <Text className="mb-3 font-bold mr-5">
+                            Show API key:
+                        </Text>
+                        <Checkbox
+                            onValueChange={showPassword}
+                            value={checked}
+                        />
                     </View>
 
-                    {/* handles text prompt from user */}
-                    <Text className="mb-2 font-bold">Input Text</Text>
-                    <TextInput
-                        id="input-text"
-                        value={inputText}
-                        onChangeText={(e) => setInputText(e.target.value)}
-                        className="border-2 rounded-xl border-blue-500 p-3 mb-10 h-auto max-h-none resize-none"
-                        rows={1}
-                    />
-
-                    {/* handles Pressable submit */}
-                    <View className="flex justify-center">
+                    <View>
                         <Pressable
-                            type="submit"
-                            className="bg-blue-500 text-white py-3 px-4 rounded text-center w-60 flex justify-center hover:bg-blue-800"
-                            disabled={loading}
-                            title="Loading..."
+                            onPress={handleApiKeySave}
+                            className="bg-blue-500 text-white py-1 px-2 rounded text-center w-50 text-md flex justify-center hover:bg-blue-800"
+                            title="Save API Key"
                         >
-                            {/* when loading spinner is displayed, otherwise Pressable is enabled */}
-                            {loading ? (
-                                <HashLoader
-                                    color="white"
-                                    loading={loading}
-                                    size={25}
-                                    aria-label="Loading"
-                                    cssOverride={override}
-                                />
-                            ) : (
-                                <Text className="font-bold">Ask nicely</Text>
-                            )}
+                            <Text>Save API Key</Text>
                         </Pressable>
                     </View>
                 </View>
 
-                {/* result display */}
-                <View>
-                    {result && (
-                        <Text className="font-bold mb-2 mx-4 mt-6">Result</Text>
-                    )}
-                    {result && (
-                        <View className="border-2 rounded-xl border-blue-400 p-4 mt-2 mx-4">
-                            <View className="whitespace-pre-line">
-                                <Text>{parsedResult}</Text>
-                            </View>
-                        </View>
-                    )}
+                {/* handles text prompt from user */}
+                <Text className="mb-2 font-bold">Input Text</Text>
+                <TextInput
+                    id="input-text"
+                    value={inputText}
+                    onChangeText={(e) => setInputText(e.target.value)}
+                    className="border-2 rounded-xl border-blue-500 p-3 mb-10 h-auto max-h-none resize-none"
+                    rows={1}
+                />
+
+                {/* handles Pressable submit */}
+                <View className="flex justify-center">
+                    <Pressable
+                        type="submit"
+                        className="bg-blue-500 text-white py-3 px-4 rounded text-center w-60 flex justify-center hover:bg-blue-800"
+                        disabled={loading}
+                        title="Loading..."
+                    >
+                        {/* when loading spinner is displayed, otherwise Pressable is enabled */}
+                        {loading ? (
+                            <HashLoader
+                                color="white"
+                                loading={loading}
+                                size={25}
+                                aria-label="Loading"
+                                cssOverride={override}
+                            />
+                        ) : (
+                            <Text className="font-bold">Ask nicely</Text>
+                        )}
+                    </Pressable>
                 </View>
-            </ScrollView>
+            </View>
+
+            {/* result display */}
+            <View>
+                {result && (
+                    <Text className="font-bold mb-2 mx-4 mt-6">Result</Text>
+                )}
+                {result && (
+                    <View className="border-2 rounded-xl border-blue-400 p-4 mt-2 mx-4">
+                        <View className="whitespace-pre-line">
+                            <Text>{parsedResult}</Text>
+                        </View>
+                    </View>
+                )}
+            </View>
         </View>
     )
 }
