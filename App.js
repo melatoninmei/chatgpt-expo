@@ -150,7 +150,7 @@ function App() {
                 <TextInput
                     id="input-text"
                     value={inputText}
-                    onChangeText={(e) => setInputText(e.target.value)}
+                    onChangeText={setInputText}
                     className="border-2 rounded-xl border-blue-500 p-3 mb-10 h-auto max-h-none resize-none"
                     rows={1}
                 />
@@ -158,10 +158,10 @@ function App() {
                 {/* handles Pressable submit */}
                 <View className="flex justify-center">
                     <Pressable
-                        type="submit"
                         className="bg-blue-500 text-white py-3 px-4 rounded text-center w-60 flex justify-center hover:bg-blue-800"
                         disabled={loading}
                         title="Loading..."
+                        onPress={handleSubmit}
                     >
                         {/* when loading spinner is displayed, otherwise Pressable is enabled */}
                         {loading ? (
