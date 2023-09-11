@@ -1,10 +1,12 @@
-# ChatGPT Expo Project
+# ChatGPT Expo Project ✨
 
 An Expo Project implementation to interact with ChatGPT API from OpenAI.
 
-Web and iOS are functional.
+Web and iOS are functional. No guarantees.
 
-This is a lift and shift from https://github.com/tohrxyz/chatgpt-open-ui 🙌
+This is a lift and shift from [tohrxyz/chatgpt-open-ui](https://github.com/tohrxyz/chatgpt-open-ui) 🙌
+
+<img src="chatgpt-expo.png" width="500px"/>
 
 # 📚 Stack
 
@@ -14,7 +16,7 @@ This is a lift and shift from https://github.com/tohrxyz/chatgpt-open-ui 🙌
 
 # 👩🏻‍💻 Run locally
 
-```
+```bash
 npm install
 npx tailwindcss -i ./src/input.css -o ./public/dist/output.css
 npm start
