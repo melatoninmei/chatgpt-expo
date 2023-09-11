@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import onSubmit from "./src/api/api"
-import HashLoader from "react-spinners/HashLoader"
 import parseMarkdown from "./src/parseMarkdown/parseMarkdown"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { View, Text, TextInput, Pressable } from "react-native"
@@ -48,12 +47,6 @@ function App() {
         onSubmit(apiKey, inputText, setResult).then(() => {
             setLoading(false)
         })
-    }
-
-    // overrides default css for HashLoader spinner
-    const override = {
-        display: "block",
-        margin: "0 auto",
     }
 
     const showPassword = () => {
@@ -156,13 +149,6 @@ function App() {
                     >
                         {/* when loading spinner is displayed, otherwise Pressable is enabled */}
                         {loading ? (
-                            // <HashLoader
-                            //     color="white"
-                            //     loading={loading}
-                            //     size={25}
-                            //     aria-label="Loading"
-                            //     cssOverride={override}
-                            // />
                             <Text className="font-bold">
                                 Thinking deeply 🧐
                             </Text>
