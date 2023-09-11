@@ -1,15 +1,25 @@
-# Well actually...
+# ChatGPT Expo Project
 
-Chat bot that validates your facts without hallucinating
+An Expo Project implementation to interact with ChatGPT API from OpenAI.
 
--   tailwindcss
--   native tailwind
--   async storage react native
+Web and iOS are functional.
 
-Expo project:
-`npm install`
-`npx tailwindcss -i ./src/input.css -o ./public/dist/output.css`
-`npm run web`
+This is a lift and shift from https://github.com/tohrxyz/chatgpt-open-ui 🙌
 
-With stencil from:
-https://github.com/tohrxyz/chatgpt-open-ui
+# 📚 Stack
+
+-   React.js
+-   NativeWind
+-   Expo project
+
+# 👩🏻‍💻 Run locally
+
+```
+npm install
+npx tailwindcss -i ./src/input.css -o ./public/dist/output.css
+npm start
+```
+
+# 📄 License
+
+This project is licensed under [MIT License](https://github.com/tohrxyz/chatgpt-open-ui/blob/main/LICENSE)

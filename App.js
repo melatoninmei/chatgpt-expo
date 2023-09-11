@@ -92,7 +92,7 @@ function App() {
         <View className="container mx-auto py-10 max-w-3xl">
             {/* title */}
             <Text className="text-4xl font-bold mb-4 text-center">
-                Well actually... 🧐
+                ChatGPT Expo
             </Text>
 
             {/* form container */}
