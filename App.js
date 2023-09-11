@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import onSubmit from "./src/api/api"
 import HashLoader from "react-spinners/HashLoader"
 import parseMarkdown from "./src/parseMarkdown/parseMarkdown"
-// import allowTextareasToDynamicallyResize from "./src/dynamicInput/dynamicInput"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { View, Text, TextInput, Pressable } from "react-native"
 import { Checkbox } from "expo-checkbox"
+import "react-native-url-polyfill/auto"
 
 function App() {
     const [apiKey, setApiKey] = useState("")
@@ -71,11 +71,6 @@ function App() {
         e.preventDefault()
         storeData("apiKey", apiKey)
     }
-
-    // update textarea height on input
-    useEffect(() => {
-        // allowTextareasToDynamicallyResize()
-    }, [])
 
     const storeData = async (key, value) => {
         try {
@@ -161,13 +156,16 @@ function App() {
                     >
                         {/* when loading spinner is displayed, otherwise Pressable is enabled */}
                         {loading ? (
-                            <HashLoader
-                                color="white"
-                                loading={loading}
-                                size={25}
-                                aria-label="Loading"
-                                cssOverride={override}
-                            />
+                            // <HashLoader
+                            //     color="white"
+                            //     loading={loading}
+                            //     size={25}
+                            //     aria-label="Loading"
+                            //     cssOverride={override}
+                            // />
+                            <Text className="font-bold">
+                                Thinking deeply 🧐
+                            </Text>
                         ) : (
                             <Text className="font-bold">Ask nicely</Text>
                         )}
